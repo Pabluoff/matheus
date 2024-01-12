@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&amp;display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon"
+        href="img/gold-coin-dollar-coin-cryptocurrency-crypto-coin-blockchain-technology-currency-gold-crypto-coin-vector-illustration-background-free-png.webp"
+        type="image/x-icon">
+    <title>Parabens</title>
+</head>
+
+<body>
+    <div class="header">
+        <p>Você e algumas pessoas próximas de <span id="cidade" class="city-name"></span> foram selecionadas para
+            participar.</p>
+
+    </div>
+    <div class="content">
+        <h1 class="casino-title">Parabéns</h1>
+        <img src="/img/c040639c8dc9522936f4a680b1888f1e.png" alt="Imagem do Cassino" class="casino-image">
+        <p class="access-paragraph">Seu acesso foi liberado</p>
+        <a href="#" class="whatsapp-button">
+            Junte-se ao Grupo no WhatsApp
+        </a>
+        <p id="people-counter" class="people-counter">0 Pessoas entraram no grupo</p>
+        <p class="casino-copy">Restam poucas vagas!</p>
+        <div class="secure-info">
+            <i class="fas fa-lock"></i> Site Seguro
+        </div>
+    </div>
+
+    <script>
+        function updateLocation(location) {
+            const locationElement = document.getElementById('cidade');
+            locationElement.textContent = location;
+        }
+
+        function getIPLocation() {
+            const request = new XMLHttpRequest();
+            request.open('GET', 'https://wtfismyip.com/json', true);
+
+            request.onload = function () {
+                if (request.status >= 200 && request.status < 400) {
+                    const data = JSON.parse(request.responseText);
+                    const location = data.YourFuckingLocation.replace(/\,.+/g, "$'");
+                    updateLocation(location);
+                } else {
+                    updateLocation("Cidade Desconhecida");
+                }
+            };
+
+            request.onerror = function () {
+                updateLocation("Erro na requisição");
+            };
+
+            request.send();
+        }
+
+        getIPLocation();
+
+
+        function startPeopleCounter() {
+            const counterElement = document.getElementById('people-counter');
+            let count = Math.floor(Math.random() * (21 - 8 + 1) + 8); // Número inicial entre 8 e 21
+            const minLimit = 90;
+            const maxLimit = 167;
+
+            const updateCounter = () => {
+                count += Math.floor(Math.random() * 5); // Aumento aleatório entre 0 e 5
+                if (count > maxLimit) {
+                    count = maxLimit; // Limitar a contagem ao máximo
+                }
+                counterElement.textContent = count + " Pessoas entraram no grupo";
+
+                if (count < maxLimit) {
+                    setTimeout(updateCounter, 2000); // Atualizar a cada 2 segundos (ajuste conforme necessário)
+                }
+            }
+
+            updateCounter();
+        }
+
+        startPeopleCounter();
+
+    </script>
+</body>
+
+</html>
